@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>budgetplaner</title>
+<!-- Responsive damit die elemnte nicht kleiner werden obwohl die Ansich kleiner wird  -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- --------------------------------------------------------------------------------  -->
+<link rel="stylesheet" href="../CSS/main.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+
+</head>
+<body onload="loadHeaderCSV()">
+	<div class="jumbotron text-center">
+		<h1 id="heute"></h1>
+		<p id="sumKontostand">Akuteller Kontostand</p>
+		<button id="in" type="button" class="btn round" onclick="setOneEntry()">+</button>
+		<button id="out" type="button" class="btn round">-</button>
+	</div>
+	<div id="table">
+		<table>
+			<tbody>
+				<tr id="head">
+				</tr>
+				<tr id="data">
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<script type="text/javascript" src="../JS/funktion.js"></script>
+</body>
+</html>
