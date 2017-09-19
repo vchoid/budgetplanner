@@ -111,21 +111,6 @@ function createHeaderArray(row) {
 	return titleArray;
 }
 /**
- * Fordert eine Datei an und ließt die erste Zeile einer CSV-Datei und speichert
- * diese als Kopfzeile einer Tabelle.
- */
-function loadCSVHeader() {
-	var xhttp = new XMLHttpRequest();
-	xhttp.onreadystatechange = function() {
-		if (this.readyState == 4 && this.status == 200) {
-			var head = createHeaderArray(this.responseText);
-			createTableHeader(head);
-		}
-	};
-	xhttp.open("GET", "../Haushaltbuch/header.csv", true);
-	xhttp.send();
-}
-/**
  * Erstellt aus einem Array, Kopfzeilen einer Tabelle.
  * 
  * @param headArr
@@ -137,18 +122,32 @@ function createTableHeader(headArr) {
 		th.innerHTML = headArr[i];
 	}
 }
-
-
-// ----- test Variablen -----------------------
-var i = 0;
-var euro = 12;
-function setOneEntry() {
-	var date = actMonthYear();
-	var tdDate = create('td');
-
-	getByID('data').appendChild(tdDate);
-
-	// ------------------- test ----------------
-	tdDate.innerHTML = date;
+/**
+ * Erstellt (Anhand des Arrays der Kopfzeile) in jeder Spalte ein Datensatz.
+ */
+function createTableData() {
+	for (var int = 0; int < titleArray.length; int++) {
+		var tdDate = create('td');
+		getByID('data').appendChild(tdDate);
+		// ------------------- test ----------------
+		tdDate.innerHTML = 'Wert 0,00';
+	}
 
 }
+/**
+ * Fordert eine Datei an und ließt die erste Zeile einer CSV-Datei und speichert
+ * diese als Kopfzeile einer Tabelle.
+ */
+function loadCSVHeader() {
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			var head = createHeaderArray(this.responseText);
+			createTableHeader(head);
+			createTableData();
+		}
+	};
+	xhttp.open("GET", "../Haushaltbuch/header.csv", true);
+	xhttp.send();
+}
+
