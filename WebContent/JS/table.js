@@ -48,7 +48,7 @@ function createTableHeader(headArr) {
 	}
 }
 /**
- * Erstellt (Anhand des Arrays der Kopfzeile) in jeder Spalte ein Datensatz.
+ * Erstellt in jeder Spalte einer Reihe (Länge anhand der Länge der Kopfzeile -> Array) ein Datensatz.
  */
 function createTableData(testData) {
 	var tRow = create('tr');
@@ -57,7 +57,7 @@ function createTableData(testData) {
 		var tdData = create('td');
 		tRow.appendChild(tdData);
 		
-		// ------------------- test ----------------
+		// TODO Löschen! Nur zum testen.
 		tdData.innerHTML = testData;
 	}
 	
@@ -72,6 +72,7 @@ function loadCSVHeader() {
 		if (this.readyState == 4 && this.status == 200) {
 			var head = createHeaderArray(this.responseText);
 			createTableHeader(head);
+			// TODO Löschen! Nur zum testen.
 			for (var i = 0; i < 10; i++) {
 				createTableData('Data ' + i);
 			}
