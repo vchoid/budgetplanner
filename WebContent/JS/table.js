@@ -5,36 +5,39 @@ var getByID = function(id) {
 	return document.getElementById(id);
 }
 
-var titleArray = [];
+var contentArray = [];
 /**
  * Erstellt eine Var mit der Anzahl der Zeichen einer Zeile. Erstellt eine
- * temporäe Var zum zwischenspeichern der einzelne Wörter Erstellt eine
- * ZählerVar zum speichern der Wörter in ein Array.
- * Die For-Schleife läuft die Länge Zeile ab (tLenght) und ließt alle Zeichen.
- * Überprüft bei jedem Zeichen ob es sich um ein ';' handelt.
- * Bei false -> speichert das Zeichen der Stelle 'i' in die Var tmp und hängt immer wieder hinten an.
- * Bei true -> speichert alle Zeichen bis dahin in ein Array an der Position 'j' und leert die tmp-Var.
- * @param row
+ * Variable zum zwischenspeichern der einzelne Wörter. Erstellt eine
+ * Zählervariable zum speichern der Wörter in ein Array.
+ * Die For-Schleife läuft die Länge Zeile ab (lenght) und ließt alle Zeichen.
+ * Überprüft bei jedem Zeichen ob es sich nicht um ein ';' handelt.
+ * Bei true -> Speichert das Zeichen der Stelle 'i' in die Variable 'data' 
+ * und hängt bei true weitere Zeichen hinten an.
+ * Speichert 'data'-Variable dann in ein Array an der Position 'j'
+ * Bei false -> leert die 'data'-Variable. Erhöht die Stelle im Array um 1. 
+ * @param oneRow
  * @returns {Array}
  */
-function createHeaderArray(row) {
-	var tLenght = row.length;
-	var tmp = '';
+function csvContentToArray(oneRow) {
+	var lenght = oneRow.length;
+	var data = '';
 	var j = 0;
-	for (var i = 0; i < tLenght; i++) {
-		if (row[i] === ';') {
-			titleArray[j] = tmp;
-			tmp = '';
+	for (var i = 0; i < lenght; i++) {
+		if (oneRow[i] !== ';') {
+			data += oneRow[i];
+			contentArray[j] = data;
+		} else {
+			data = '';
 			j++;
 			continue;
-		} else {
-			tmp += row[i];
 		}
 	}
-	return titleArray;
+	return contentArray;
 }
+var headLenght;
 /**
- * Erstellt aus einem Array, Kopfzeilen einer Tabelle.
+ * Erstellt aus einem Array, eine Kopfzeilen für eine Tabelle.
  * 
  * @param headArr
  */
@@ -48,20 +51,18 @@ function createTableHeader(headArr) {
 	}
 }
 /**
- * Erstellt in jeder Spalte einer Reihe (Länge anhand der Länge der Kopfzeile -> Array) ein Datensatz.
+ * Erstellt in jeder Spalte einer Reihe (Länge anhand der Länge der Kopfzeile -> Array ein Datensatz.
  */
-function createTableData(testData) {
+function createTableData(dataArr) {
 	var tRow = create('tr');
 	getByID('body').appendChild(tRow);
-	for (var int = 0; int < titleArray.length; int++) {
+	for (var int = 0; int < 10; int++) {
 		var tdData = create('td');
 		tRow.appendChild(tdData);
-		
-		// TODO Löschen! Nur zum testen.
-		tdData.innerHTML = testData;
+		tdData.innerHTML = dataArr;
 	}
-	
 }
+
 /**
  * Fordert eine Datei an und ließt die erste Zeile einer CSV-Datei und speichert
  * diese als Kopfzeile einer Tabelle.
@@ -70,14 +71,33 @@ function loadCSVHeader() {
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
-			var head = createHeaderArray(this.responseText);
+			var head = csvContentToArray(this.responseText);
 			createTableHeader(head);
 			// TODO Löschen! Nur zum testen.
-			for (var i = 0; i < 10; i++) {
-				createTableData('Data ' + i);
-			}
+			loadCSVData();
 		}
 	};
 	xhttp.open("GET", "../Haushaltbuch/header.csv", true);
 	xhttp.send();
 }
+function splitDataArrayToOneTableRow(dataArray){
+	//TODO -> einzelne Datensaätze erkennen und in eine neues Array speichern
+}
+/**
+ * Fordert eine Datei an und ließt die erste Zeile einer CSV-Datei und speichert
+ * diese als Kopfzeile einer Tabelle.
+ */
+function loadCSVData() {
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			var rawDataArray = csvContentToArray(this.responseText);
+				createTableData(rawDataArray);
+				
+		}
+	};
+	xhttp.open("GET", "../Haushaltbuch/testdata.csv", true);
+	xhttp.send();
+}
+
+	
