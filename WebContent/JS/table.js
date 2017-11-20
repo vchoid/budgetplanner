@@ -5,7 +5,7 @@ var getByID = function(id) {
 	return document.getElementById(id);
 }
 
-var contentArray = [];
+var headerArray = [];
 /**
  * Erstellt eine Var mit der Anzahl der Zeichen einer Zeile. Erstellt eine
  * Variable zum zwischenspeichern der einzelne Wörter. Erstellt eine
@@ -26,15 +26,34 @@ function csvContentToArray(oneRow) {
 	for (var i = 0; i < lenght; i++) {
 		if (oneRow[i] !== ';') {
 			data += oneRow[i];
-			contentArray[j] = data;
+			headerArray[j] = data;
 		} else {
 			data = '';
 			j++;
 			continue;
 		}
 	}
-	return contentArray;
+	return headerArray;
 }
+
+var dataArray = [];
+function csvContentToArray2(oneRow) {
+	var lenght = oneRow.length;
+	var data = '';
+	var j = 0;
+	for (var i = 0; i < lenght; i++) {
+		if (oneRow[i] !== '\r') {
+			data += oneRow[i];
+			dataArray[j] = data;
+		} else {
+			data = '';
+			j++;
+			continue;
+		}
+	}
+	return dataArray;
+}
+
 var headLenght;
 /**
  * Erstellt aus einem Array, eine Kopfzeilen für eine Tabelle.
@@ -56,7 +75,7 @@ function createTableHeader(headArr) {
 function createTableData(dataArr) {
 	var tRow = create('tr');
 	getByID('body').appendChild(tRow);
-	for (var int = 0; int < 10; int++) {
+	for (var int = 0; int < 3; int++) {
 		var tdData = create('td');
 		tRow.appendChild(tdData);
 		tdData.innerHTML = dataArr;
@@ -73,7 +92,6 @@ function loadCSVHeader() {
 		if (this.readyState == 4 && this.status == 200) {
 			var head = csvContentToArray(this.responseText);
 			createTableHeader(head);
-			// TODO Löschen! Nur zum testen.
 			loadCSVData();
 		}
 	};
@@ -91,9 +109,9 @@ function loadCSVData() {
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
-			var rawDataArray = csvContentToArray(this.responseText);
-				createTableData(rawDataArray);
-				
+			var rawDataArray = csvContentToArray2(this.responseText);
+			createTableData(rawDataArray);
+			
 		}
 	};
 	xhttp.open("GET", "../Haushaltbuch/testdata.csv", true);

@@ -104,7 +104,8 @@ CREATE TABLE buchung(
 	verwendungszweck VARCHAR(300),
 	betrag decimal(15,2) default 0.00,
 	buchungsdatum date NOT NULL default '0000-00-00',
-	erfassungsdatum timestamp default current_timestamp,
+	erstellungsdatum timestamp default current_timestamp,
+	änderungsdatum timestamp default current_timestamp,
 	kontoID INTEGER NOT NULL default 1,
 	kategorieID INTEGER NOT NULL,
 	statusID INTEGER NOT NULL default 1,
@@ -156,7 +157,7 @@ VALUES (
 	645.45,
 	'2017-09-15',
     1000,
-	13,
+	12,
 	1,
 	1
 );
@@ -231,7 +232,7 @@ INSERT INTO buchung(
 	turnusID
 )
 VALUES (
-	2,
+	1,
 	'Urlaub',
 	6000,
 	'2017-10-15',
@@ -266,7 +267,7 @@ VALUES (
 DROP TABLE buchung;
 
 DELETE FROM BUCHUNG
-WHERE buchungsID=5;
+WHERE buchungsID = 1005;
 
-
+UPDATE BUCHUNG SET transferID = 1, änderungsdatum = current_timestamp WHERE buchungsID = 1005;
 	

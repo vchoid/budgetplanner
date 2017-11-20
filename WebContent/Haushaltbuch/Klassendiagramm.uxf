@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>10</x>
+      <y>10</y>
+      <w>180</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>Konto
+--
+id: int
+kontoStand: decimal
+dispo: decimal
+name: String
+--
+getName();
+setName();
+getKontostand();
+setKontostand();
+getDispo();
+setDispo();
+deleteKonto()
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>210</x>
+      <y>10</y>
+      <w>150</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>Kategorie
+--
+id: int
+bezeichnung: String
+--
+deleteKat();
+makeNewKat();
+getID();
+getBez();
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>210</x>
+      <y>150</y>
+      <w>150</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>Status
+--
+id: int
+bezeichnung: String
+--
+getID();
+getBez;
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>210</x>
+      <y>440</y>
+      <w>150</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>Transferrichtung
+--
+id: int
+bezeichnung: String
+--
+getID();
+getBez();
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>210</x>
+      <y>290</y>
+      <w>150</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>Turnus
+--
+id: int
+bezeichnung: String
+--
+getID();
+getBez()
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>10</x>
+      <y>240</y>
+      <w>180</w>
+      <h>540</h>
+    </coordinates>
+    <panel_attributes>Buchung
+--
+id: int
+transferID: int
+verwendungszweck: String
+betrag: decimal
+buchungsDat: date
+erfassungsDat: date
+kontoID: int
+katID: int
+statusID: int
+turnusID: int
+--
+getBuchungsID();
+getTransferID();
+setTransferID();
+getVerwendungszweck();
+setVerwendungszweck();
+getBetrag();
+setBetrag();
+getBuchungsDat();
+setBuchungsDat();
+getErfassungsDat();
+getKontoID();
+setKontoID();
+getKatID();
+setKatID();
+getStatusID();
+setStatusID();
+getTurnusID();
+setTurnusID();
+
+changeBuchung();
+deleteBuchung();
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
